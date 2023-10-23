@@ -15,4 +15,5 @@ black = "*"
 python_version = "3.11"
 
 [scripts]
-serve = "flask run"
+serve = "flask run --debug"
+dev = "flask run --debug"
