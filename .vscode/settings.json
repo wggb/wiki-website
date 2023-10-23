@@ -1,0 +1,63 @@
+{
+  "editor.wordWrapColumn": 100,
+  "editor.wordWrap": "bounded",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "[json]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false
+    }
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false
+    }
+  },
+  "[plaintext]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false
+    }
+  },
+  "[toml]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false
+    }
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["Class \\=([^;]*);", "'([^']*)'"],
+    ["Class \\=([^;]*);", "\"([^\"]*)\""],
+    ["Class \\=([^;]*);", "\\`([^\\`]*)\\`"],
+    ["Classes \\=([^;]*);", "'([^']*)'"],
+    ["Classes \\=([^;]*);", "\"([^\"]*)\""],
+    ["Classes \\=([^;]*);", "\\`([^\\`]*)\\`"],
+    ["CLASS \\=([^;]*);", "'([^']*)'"],
+    ["CLASS \\=([^;]*);", "\"([^\"]*)\""],
+    ["CLASS \\=([^;]*);", "\\`([^\\`]*)\\`"],
+    ["CLASSES \\=([^;]*);", "'([^']*)'"],
+    ["CLASSES \\=([^;]*);", "\"([^\"]*)\""],
+    ["CLASSES \\=([^;]*);", "\\`([^\\`]*)\\`"]
+  ],
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "enter-to-class",
+    "leave-to-class",
+    "appear-to-class",
+    "enter-from-class",
+    "leave-from-class",
+    "appear-from-class",
+    "enter-active-class",
+    "leave-active-class",
+    "appear-active-class"
+  ]
+}
