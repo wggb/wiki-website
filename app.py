@@ -86,5 +86,7 @@ def register():
             user = User(username=username, password=hashed_password)
             db_session.add(user)
             db_session.commit()
+            return redirect("/login")
+
     else:
         return render_template("register.html")
