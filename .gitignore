@@ -294,5 +294,5 @@ dist
 .pnp.*
 
 # Custom files
-users.db
+db.sqlite
 static/**/*.built.*
