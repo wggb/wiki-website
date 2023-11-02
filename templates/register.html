@@ -48,5 +48,24 @@ Register
       <a class="link link-primary" href="/login">Log in here</a>
     </p>
   </form>
+
+  <div id="error" class="p-2 w-full transition opacity-0 pointer-events-none">
+    <div class="alert alert-error w-fit min-w-[24rem] mx-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>{{ error }}</span>
+    </div>
+  </div>
+
+  {% if error %}
+    <script>
+      setTimeout(() => {
+        document.querySelector("#error").classList.add("!opacity-100")
+        document.querySelector("#error").classList.add("!pointer-events-auto")
+      }, 100);
+    </script>
+  {% endif %}
 </div>
+
 {% endblock %}

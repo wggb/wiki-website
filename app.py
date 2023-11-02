@@ -42,21 +42,26 @@ def homepage():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     session.clear()
+
+    error = None
+
     if request.method == "POST":
         if not request.form.get("username"):
-            return render_template("apology.html")
+            error = "Sorry! Can't Do The Thing"
         if not request.form.get("password"):
-            return render_template("apology.html")
+            error = "Sorry! Can't Do The Thing"
 
         # todo: check database for user
 
         # todo: start session
 
-        # if all is right
-        return redirect("/")
+        if error:
+            return render_template("login.html", error=error)
+        else:
+            return redirect("/")
 
     else:
-        return render_template("login.html")
+        return render_template("login.html", error=error)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -64,22 +69,24 @@ def register():
     username = request.form.get("username")
     password = request.form.get("password")
 
+    error = None
+
     if request.method == "POST":
         if not request.form.get("username"):
-            return render_template("apology.html")
+            error = "Sorry! Can't Do The Thing"
         if not request.form.get("password"):
-            return render_template("apology.html")
+            error = "Sorry! Can't Do The Thing"
         if not request.form.get("confirmation"):
-            return render_template("apology.html")
+            error = "Sorry! Can't Do The Thing"
         if request.form.get("password") != request.form.get("confirmation"):
-            return render_template("apology.html")
+            error = "Sorry! Can't Do The Thing"
 
         # check for others with the same username
         ## rows = SELECT * FROM users WHERE username = ?, request get username
         rows = db_session.query(User).where(User.username == username).all()
-        if len(rows) > 0:
-            return render_template("apology.html")
 
+        if len(rows) > 0:
+            error = "Sorry! Can't Do The Thing"
         else:
             # add user to database
             hashed_password = generate_password_hash(password)
@@ -88,5 +95,8 @@ def register():
             db_session.commit()
             return redirect("/login")
 
+        if error:
+            return render_template("register.html", error=error)
+
     else:
-        return render_template("register.html")
+        return render_template("register.html", error=error)
