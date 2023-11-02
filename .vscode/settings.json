@@ -32,6 +32,9 @@
       "source.organizeImports": false
     }
   },
+  "[html]": {
+    "editor.formatOnSave": false
+  },
   "tailwindCSS.experimental.classRegex": [
     ["Class \\=([^;]*);", "'([^']*)'"],
     ["Class \\=([^;]*);", "\"([^\"]*)\""],
