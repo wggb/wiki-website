@@ -5,15 +5,40 @@ Log In
 {% endblock %}
 
 {% block main %}
-<form action="/login" method="post">
-  <div class="mb-3">
-    <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username"
-      placeholder="Username" type="text">
+<div class="flex flex-col justify-center items-center w-full min-h-screen space-y-4">
+  <div class="p-4 space-y-2 form-control card w-96 bg-neutral shadow-xl">
+    <p class="text-xl text-center">Log In to Wiki</p>
   </div>
-  <div class="mb-3">
-    <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
-  </div>
-  <button class="btn btn-primary" type="submit">Log In</button>
-</form>
-<a href="/register">register</a>
+
+  <form
+    class="p-4 space-y-2 form-control card w-96 bg-neutral shadow-xl"
+    action="/login"
+    method="post"
+  >
+    <input
+      autocomplete="off"
+      autofocus
+      class="input input-bordered w-full"
+      id="username"
+      name="username"
+      placeholder="Username"
+      type="text"
+    />
+
+    <input
+      class="input input-bordered w-full"
+      id="password"
+      name="password"
+      placeholder="Password"
+      type="password"
+    />
+
+    <button class="btn btn-primary !mt-8" type="submit">Log In</button>
+
+    <p class="text-center">
+      <span class="opacity-60">Don't have an account?</span>
+      <a class="link link-primary" href="/register">Register here</a>
+    </p>
+  </form>
+</div>
 {% endblock %}
