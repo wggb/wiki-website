@@ -27,11 +27,7 @@ def add_header(response):
 
 
 @app.route("/", methods=["GET"])
-# requite login
 def homepage():
-    if session.get("user_id") is None:
-        return redirect("/login")
-
     return render_template("index.html")
 
 

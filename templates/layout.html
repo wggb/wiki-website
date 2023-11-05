@@ -2,12 +2,35 @@
 
 <html lang="en">
   <head>
-    <title>{% block title %}{% endblock %}</title>
+    <title>Wiki - {% block title %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.built.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.built.css') }}"
+    />
   </head>
 
   <body>
+    {% block navbar %}
+    <nav class="absolute navbar bg-base-100">
+      <div class="flex-1">
+        <a class="btn btn-ghost normal-case text-xl" href="/">Wiki</a>
+      </div>
+      <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+          <li>
+            <a href="/login">Login</a>
+          </li>
+          <li>
+            <a href="/register">Register</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% endblock %}
+
+    <!---->
+
     {% block main %}{% endblock %}
   </body>
 </html>
