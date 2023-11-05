@@ -32,7 +32,7 @@ def homepage():
     if session.get("user_id") is None:
         return redirect("/login")
 
-    return render_template("homepage.html")
+    return render_template("index.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
