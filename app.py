@@ -26,10 +26,6 @@ def add_header(response):
     return response
 
 
-# configure SQLAlchemy to use db
-# todo
-
-
 @app.route("/", methods=["GET"])
 # requite login
 def homepage():
@@ -43,17 +39,23 @@ def homepage():
 def login():
     session.clear()
 
+    username = request.form.get("username")
+    password = request.form.get("password")
+
     error = None
 
     if request.method == "POST":
-        if not request.form.get("username"):
+        if not username:
             error = "Sorry! Can't Do The Thing"
-        if not request.form.get("password"):
+        if not password:
+            error = "Sorry! Can't Do The Thing"
+        # Query database for username
+        rows = db_session.query(User).where(User.username == username).all()
+        if len(rows) != 1 or not check_password_hash(rows[0].password, password):
             error = "Sorry! Can't Do The Thing"
 
-        # todo: check database for user
-
-        # todo: start session
+        # Remember which user has logged in
+        session["user_id"] = rows[0].id  # check this!
 
         if error:
             return render_template("login.html", error=error)
@@ -93,7 +95,9 @@ def register():
             user = User(username=username, password=hashed_password)
             db_session.add(user)
             db_session.commit()
-            return redirect("/login")
+            # start session
+            session["user_id"] = user.id
+            return redirect("/")
 
         if error:
             return render_template("register.html", error=error)
