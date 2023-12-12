@@ -72,28 +72,28 @@ def register():
     if request.method == "POST":
         if not request.form.get("username"):
             error = "Sorry! Can't Do The Thing"
-        if not request.form.get("password"):
+        elif not request.form.get("password"):
             error = "Sorry! Can't Do The Thing"
-        if not request.form.get("confirmation"):
+        elif not request.form.get("confirmation"):
             error = "Sorry! Can't Do The Thing"
-        if request.form.get("password") != request.form.get("confirmation"):
-            error = "Sorry! Can't Do The Thing"
-
-        # check for others with the same username
-        ## rows = SELECT * FROM users WHERE username = ?, request get username
-        rows = db_session.query(User).where(User.username == username).all()
-
-        if len(rows) > 0:
+        elif request.form.get("password") != request.form.get("confirmation"):
             error = "Sorry! Can't Do The Thing"
         else:
-            # add user to database
-            hashed_password = generate_password_hash(password)
-            user = User(username=username, password=hashed_password)
-            db_session.add(user)
-            db_session.commit()
-            # start session
-            session["user_id"] = user.id
-            return redirect("/")
+            # check for others with the same username
+            ## rows = SELECT * FROM users WHERE username = ?, request get username
+            rows = db_session.query(User).where(User.username == username).all()
+
+            if len(rows) > 0:
+                error = "Sorry! Can't Do The Thing"
+            else:
+                # add user to database
+                hashed_password = generate_password_hash(password)
+                user = User(username=username, password=hashed_password)
+                db_session.add(user)
+                db_session.commit()
+                # start session
+                session["user_id"] = user.id
+                return redirect("/")
 
         if error:
             return render_template("register.html", error=error)
