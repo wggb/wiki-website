@@ -100,3 +100,21 @@ def register():
 
     else:
         return render_template("register.html", error=error)
+
+
+@app.route("/results", methods=["GET"])
+def results():
+    query = request.form.get("search")
+    results = perform_search(query)
+    return render_template("results.html", results=results)
+
+
+def perform_search(query):
+    # search logic
+    # return search results
+    pass
+
+
+@app.route("/result", methods=["GET"])
+def result():
+    return render_template("result.html")
