@@ -12,7 +12,10 @@
 
   <body>
     {% block navbar %}
-    <nav class="absolute navbar bg-base-100">
+    <nav
+      id="navbar"
+      class="fixed navbar bg-base-100 bg-opacity-60 backdrop-blur transition-shadow z-50"
+    >
       <div class="flex-1">
         <a class="btn btn-ghost normal-case text-xl" href="/">Wiki</a>
       </div>
@@ -36,6 +39,18 @@
         </ul>
       </div>
     </nav>
+
+    <script>
+      const navbar = document.querySelector("nav#navbar");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 5) {
+          navbar.classList.add("shadow-lg");
+        } else {
+          navbar.classList.remove("shadow-lg");
+        }
+      });
+    </script>
     {% endblock %}
 
     <!---->
