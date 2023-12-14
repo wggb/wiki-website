@@ -18,12 +18,21 @@
       </div>
       <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
+          {% if username %}
+          <li>
+            <a href="#">{{ username }}</a>
+          </li>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+           {% else %}
           <li>
             <a href="/login">Login</a>
           </li>
           <li>
             <a href="/register">Register</a>
           </li>
+          {% endif %}
         </ul>
       </div>
     </nav>
