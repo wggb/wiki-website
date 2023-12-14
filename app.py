@@ -1,5 +1,6 @@
-import sqlalchemy
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, g, redirect
+from flask import render_template as rt
+from flask import request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from database import User
@@ -11,6 +12,25 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+
+# makes it so everytime there's a render template, global user is passed. (for logout and username in navbar)
+def render_template(template_name_or_list, **context):
+    return rt(
+        template_name_or_list,
+        username=g.user.username if g.user else None,
+        **context,
+    )
+
+
+@app.before_request
+def load_user():
+    user_id = session.get("user_id")
+    if user_id:
+        rows = db_session.query(User).filter(User.id == user_id).all()
+        g.user = rows[0] if rows else None
+    else:
+        g.user = None
 
 
 @app.after_request
@@ -100,6 +120,12 @@ def register():
 
     else:
         return render_template("register.html", error=error)
+
+
+@app.route("/logout", methods=["GET"])
+def logout():
+    session.pop("user_id", None)
+    return redirect("/")
 
 
 @app.route("/results", methods=["GET"])
