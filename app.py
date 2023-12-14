@@ -1,6 +1,8 @@
 from flask import Flask, g, redirect
 from flask import render_template as rt
 from flask import request, session
+from lxml.html.clean import clean_html
+from markdown import markdown
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from database import User
@@ -143,4 +145,12 @@ def perform_search(query):
 
 @app.route("/result", methods=["GET"])
 def result():
-    return render_template("result.html")
+    return render_template(
+        "result.html",
+        markdown=clean_html(
+            markdown(
+                text="# Hello\nmarkdown.\n<script>alert('hi');</script>",
+                output_format="html",
+            )
+        ),
+    )
