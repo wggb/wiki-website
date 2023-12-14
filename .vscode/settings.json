@@ -3,37 +3,16 @@
   "editor.wordWrap": "bounded",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
+  },
+  "[html][json][jsonc][plaintext][toml]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never"
+    },
+    "editor.formatOnSave": false
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
-  },
-  "[json]": {
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": false
-    }
-  },
-  "[jsonc]": {
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": false
-    }
-  },
-  "[plaintext]": {
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": false
-    }
-  },
-  "[toml]": {
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": false
-    }
-  },
-  "[html]": {
-    "editor.formatOnSave": false
   },
   "tailwindCSS.experimental.classRegex": [
     ["Class \\=([^;]*);", "'([^']*)'"],
