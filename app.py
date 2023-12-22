@@ -72,8 +72,8 @@ def login():
         if len(rows) != 1 or not check_password_hash(rows[0].password, password):
             error = "Sorry! Can't Do The Thing"
 
-        # Remember which user has logged in
-        session["user_id"] = rows[0].id  # check this!
+        else:  # Remember which user has logged in
+            session["user_id"] = rows[0].id  # check this!
 
         if error:
             return render_template("login.html", error=error)
