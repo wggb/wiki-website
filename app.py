@@ -5,7 +5,7 @@ from lxml.html.clean import clean_html
 from markdown import markdown
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from database import MarkdownFile, User
+from database import Node, User
 from database import session as db_session
 from flask_session import Session
 
@@ -145,16 +145,15 @@ def perform_search(query):
 
 @app.route("/results/<int:result_id>", methods=["GET"])
 def result(result_id: int):
-    markdown_file = (
-        db_session.query(MarkdownFile).where(MarkdownFile.id == result_id).first()
-    )
-    if markdown_file:
+    node = db_session.query(Node).where(Node.id == result_id).first()
+
+    if node:
         return render_template(
             "result.html",
             result_id=result_id,
             markdown=clean_html(
                 markdown(
-                    text=markdown_file.content,
+                    text=node.primary_content,
                     output_format="html",
                 )
             ),
