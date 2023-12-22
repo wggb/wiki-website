@@ -1,4 +1,13 @@
-from sqlalchemy import CHAR, Column, ForeignKey, Integer, String, Text, create_engine
+from sqlalchemy import (
+    Column,
+    Float,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    Text,
+    create_engine,
+)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -13,12 +22,29 @@ class User(Base):
     password = Column(String)
 
 
-class MarkdownFile(Base):
-    __tablename__ = "markdown_files"
+class Node(Base):
+    __tablename__ = "node"
 
     id = Column(Integer, primary_key=True)
     title = Column(String)
-    content = Column(Text)
+
+    primary_content = Column(Text)
+    secondary_content = Column(Text)
+
+    __table_args__ = Index("title")
+
+
+class Edge(Base):
+    __tablename__ = "edge"
+
+    id = Column(Integer, primary_key=True)
+
+    from_id = Column(Integer, ForeignKey("node.id"))
+    to_id = Column(Integer, ForeignKey("node.id"))
+
+    intensity = Column(Float, default=1)
+
+    __table_args__ = Index("from_id", "to_id", "intensity")
 
 
 engine = create_engine("sqlite:///db.sqlite", echo=True)
