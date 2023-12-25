@@ -31,8 +31,6 @@ class Node(Base):
     primary_content = Column(Text)
     secondary_content = Column(Text)
 
-    __table_args__ = Index("title")
-
 
 class Edge(Base):
     __tablename__ = "edge"
@@ -44,7 +42,7 @@ class Edge(Base):
 
     intensity = Column(Float, default=1)
 
-    __table_args__ = Index("from_id", "to_id", "intensity")
+    __table_args__ = (Index("from_id", "to_id", "intensity"),)
 
 
 engine = create_engine("sqlite:///db.sqlite", echo=True)
