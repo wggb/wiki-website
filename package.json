@@ -2,9 +2,15 @@
   "name": "wiki-website",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
+  "license": "UNLICENSED",
   "scripts": {
-    "dev": "npx tailwind -i main.css -o static/css/main.built.css -w",
-    "build": "npx tailwindcss -i main.css -o static/css/main.built.css --minify"
+    "dev": "run-p dev:*",
+    "dev:rollup": "rollup -c --watch --watch.include imports.js --no-watch.clearScreen",
+    "dev:tailwind": "npx tailwind -i main.css -o static/css/main.built.css -w",
+    "build": "run-p build:*",
+    "build:rollup": "rollup -c",
+    "build:tailwind": "npx tailwindcss -i main.css -o static/css/main.built.css --minify"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
