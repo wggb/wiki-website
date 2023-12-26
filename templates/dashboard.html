@@ -1,0 +1,49 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+{% block title %}
+  Result
+{% endblock %}
+
+{% block main %}
+
+<div class="pt-20 px-4 pb-4">
+  <form class="markdown w-full p-4 space-y-6 card bg-neutral shadow-xl">
+    <label>
+      <p class="mb-2">Title</p>
+      <input
+        autocomplete="off"
+        autofocus
+        class="input w-full"
+        id="title"
+        name="title"
+        type="text"
+      />
+    </label>
+
+    <label>
+      <p class="mb-2">Primary Content</p>
+      <textarea id="primary_content" name="primary_content" class="textarea w-full"></textarea>
+    </label>
+
+    <label>
+      <p class="mb-2">Secondary Content</p>
+      <textarea id="secondary_content" name="secondary_content" class="textarea w-full"></textarea>
+    </label>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+  const interval = setInterval(() => {
+    try {
+      bundle.tinymce_init("textarea#primary_content");
+      bundle.tinymce_init("textarea#secondary_content");
+
+      clearInterval(interval);
+    } catch (error) {}
+  }, 50);
+</script>
+
+{% endblock %}

@@ -161,3 +161,8 @@ def result(result_id: int):
     else:
         # Handle the case when the result with the specified ID is not found
         return render_template("404.html")
+
+
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
+    return render_template("dashboard.html")
