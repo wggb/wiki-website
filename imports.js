@@ -22,7 +22,6 @@ export function tinymce_init(selector) {
   tinymce.init({
     selector: selector,
     plugins: "advlist code emoticons link lists table",
-    toolbar: "bold italic | bullist numlist | link emoticons",
     skin: false,
     content_css: false,
     promotion: false,
