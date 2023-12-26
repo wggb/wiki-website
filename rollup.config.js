@@ -1,6 +1,8 @@
+import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import css from "rollup-plugin-css-only";
+import postcss from "rollup-plugin-postcss";
 
 export default [
   {
@@ -10,7 +12,21 @@ export default [
       format: "iife",
       name: "bundle",
     },
-    plugins: [nodeResolve(), terser()],
+    plugins: [
+      nodeResolve(),
+      commonjs(),
+      postcss({
+        include: "**/skin.css",
+        inject: false,
+        extract: true,
+      }),
+      postcss({
+        include: "**/content.css",
+        inject: false,
+        extract: false,
+      }),
+      terser(),
+    ],
   },
   {
     input: "imports.styles.js",
