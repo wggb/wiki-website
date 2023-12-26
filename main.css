@@ -43,3 +43,12 @@
 .markdown h6 {
   @apply text-sm;
 }
+
+.tox-tinymce {
+  @apply !border-none;
+}
+
+.tox-editor-container > *,
+.tox-toolbar__primary {
+  @apply !bg-[hsl(231_15%_18%)];
+}

@@ -1,4 +1,4 @@
-import "tinymce/skins/ui/oxide/content.css";
-import "tinymce/skins/ui/oxide/skin.css";
+import "tinymce/skins/ui/oxide-dark/content.css";
+import "tinymce/skins/ui/oxide-dark/skin.css";
 
 export default {};
