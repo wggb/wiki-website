@@ -1,13 +1,5 @@
-from sqlalchemy import (
-    Column,
-    Float,
-    ForeignKey,
-    Index,
-    Integer,
-    String,
-    Text,
-    create_engine,
-)
+from sqlalchemy import (Column, Float, ForeignKey, Index, Integer, String,
+                        Text, create_engine)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -40,7 +32,7 @@ class Edge(Base):
     from_id = Column(Integer, ForeignKey("node.id"))
     to_id = Column(Integer, ForeignKey("node.id"))
 
-    intensity = Column(Float, default=1)
+    intensity = Column(Float, default=0)
 
     __table_args__ = (Index("from_id", "to_id", "intensity"),)
 
