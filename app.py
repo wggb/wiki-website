@@ -2,7 +2,6 @@ from flask import Flask, g, redirect
 from flask import render_template as rt
 from flask import request, session
 from lxml.html.clean import clean_html
-from markdown import markdown
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from database import Node, User
@@ -151,12 +150,8 @@ def result(result_id: int):
         return render_template(
             "result.html",
             result_id=result_id,
-            markdown=clean_html(
-                markdown(
-                    text=node.primary_content,
-                    output_format="html",
-                )
-            ),
+            primary_content=clean_html(node.primary_content),
+            secondary_content=clean_html(node.secondary_content),
         )
     else:
         # Handle the case when the result with the specified ID is not found
@@ -165,4 +160,19 @@ def result(result_id: int):
 
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
-    return render_template("dashboard.html")
+    title = request.form.get("title")
+    primary_content = request.form.get("primary_content")
+    secondary_content = request.form.get("secondary_content")
+    if request.method == "POST":
+        # add to node table if fields not empty
+        if title or primary_content or secondary_content:
+            node = Node(
+                title=title,
+                primary_content=clean_html(primary_content),
+                secondary_content=clean_html(secondary_content),
+            )
+            db_session.add(node)
+            db_session.commit()
+        return redirect("/dashboard")
+    else:
+        return render_template("dashboard.html")
