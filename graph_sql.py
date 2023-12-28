@@ -14,7 +14,7 @@ class GraphNode:
         rows = db_session.query(Edge).where(
             Edge.from_id == self.id, Edge.intensity > threshold
         )
-        return [(edge.to_id, edge.intensity) for edge in rows]
+        return ((edge.to_id, edge.intensity) for edge in rows)
 
     def edges(self, **args):
         return self.get_edges(args)
