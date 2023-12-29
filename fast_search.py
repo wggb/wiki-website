@@ -61,6 +61,7 @@ class FastSearch:
             "TF-IDF": tfidf_sim_matrix(docs),
             "SBERT": setence_bert_sim_matrix(docs),
         }
+        self.size = len(docs)
 
     def query(self, query, method=Methods.SBERT, k=3):
         _, enc, D = self.methods[method]

@@ -192,8 +192,13 @@ def dashboard():
                 primary_content=primary_content,
                 secondary_content=secondary_content,
             )
-            db_session.add(node)
-            db_session.commit()
+            add_node(node)
         return redirect("/dashboard")
     else:
         return render_template("dashboard.html")
+
+
+def add_node(node):
+    db_session.add(node)
+    db_session.commit()
+    search.signal_new_doc()
