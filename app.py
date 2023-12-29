@@ -132,8 +132,12 @@ def logout():
 @app.route("/results", methods=["GET"])
 def results():
     query = request.form.get("search")
-    results = perform_search(query)
-    return render_template("results.html", results=results)
+    result = perform_search(query)
+    related_ids = result
+    # related_ids = [1, 2, 3]
+    nodes = db_session.query(Node).filter(Node.id.in_(related_ids)).all()
+    if nodes:
+        return render_template("results.html", nodes=nodes)
 
 
 def perform_search(query):
@@ -146,16 +150,24 @@ def perform_search(query):
 def result(result_id: int):
     node = db_session.query(Node).where(Node.id == result_id).first()
 
+    related_ids = perform_related_docs_search(result_id)
+    # related_ids = [2, 3]
+    related_nodes = db_session.query(Node).filter(Node.id.in_(related_ids)).all()
+
     if node:
         return render_template(
             "result.html",
             result_id=result_id,
-            primary_content=clean_html(node.primary_content),
-            secondary_content=clean_html(node.secondary_content),
+            node=node,
+            related_nodes=related_nodes,
         )
     else:
         # Handle the case when the result with the specified ID is not found
         return render_template("404.html")
+
+
+def perform_related_docs_search(id):
+    pass
 
 
 @app.route("/dashboard", methods=["GET", "POST"])
@@ -166,10 +178,15 @@ def dashboard():
     if request.method == "POST":
         # add to node table if fields not empty
         if title or primary_content or secondary_content:
+            if secondary_content:
+                secondary_content = clean_html(secondary_content)
+            if primary_content:
+                primary_content = clean_html(primary_content)
+
             node = Node(
                 title=title,
-                primary_content=clean_html(primary_content),
-                secondary_content=clean_html(secondary_content),
+                primary_content=primary_content,
+                secondary_content=secondary_content,
             )
             db_session.add(node)
             db_session.commit()
