@@ -45,6 +45,14 @@ class Edge(Base):
     __table_args__ = (Index("from_id", "to_id", "intensity"),)
 
 
+def get_nodes():
+    return session.query(Node).all()
+
+
+def get_selected_nodes(ids):
+    return session.query(Node).where(Node.id.in_(ids))
+
+
 engine = create_engine("sqlite:///db.sqlite", echo=True)
 Base.metadata.create_all(bind=engine)
 
