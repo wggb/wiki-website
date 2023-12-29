@@ -7,11 +7,21 @@
 
 {% block main %}
 
-{% if results %}
-<h2>Search Results</h2>
+{% if nodes %}
 <ul>
-  {% for result in results %}
-  <li>{{ result }}</li>
+  {% for node in nodes %}
+  <li>
+
+  <a href="/results/{{ node.id }}">
+    <div class="pt-20 px-4 pb-4">
+      <div class="markdown w-full p-4 mt-[-10px] card bg-neutral shadow-xl">
+        <b style="font-size: larger;">{{ node.title}}</b>
+        {{ node.primary_content | safe }}
+      </div>
+    </div>
+  </a>
+
+  </li>
   {% endfor %}
 </ul>
 {% endif %}
