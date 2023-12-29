@@ -5,8 +5,12 @@ from lxml.html.clean import clean_html
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from database import Node, User
+from database import get_selected_nodes as id2doc
 from database import session as db_session
 from flask_session import Session
+from search_engine import SearchEngine
+
+search = SearchEngine()
 
 app = Flask(__name__)
 
@@ -131,9 +135,10 @@ def logout():
 
 @app.route("/results", methods=["GET"])
 def results():
+    if not request.form.get("search"):
+        return redirect("/")
     query = request.form.get("search")
-    result = perform_search(query)
-    related_ids = result
+    related_ids = perform_search(query)
     # related_ids = [1, 2, 3]
     nodes = db_session.query(Node).filter(Node.id.in_(related_ids)).all()
     if nodes:
@@ -142,8 +147,8 @@ def results():
 
 def perform_search(query):
     # search logic
-    # return search results
-    pass
+    # return search results in id
+    return search.query(query)
 
 
 @app.route("/results/<int:result_id>", methods=["GET"])
@@ -167,7 +172,7 @@ def result(result_id: int):
 
 
 def perform_related_docs_search(id):
-    pass
+    return search.related_docs(id)
 
 
 @app.route("/dashboard", methods=["GET", "POST"])
