@@ -34,7 +34,7 @@ def setence_bert_sim_matrix(docs):
 
 
 def get_top_k(sim_matrix, k=3, return_scores=True):
-    top_k = k
+    top_k = min(sim_matrix.shape[0] - 1, k)
     best = np.argpartition(sim_matrix, -top_k - 1, axis=1)[:, -top_k - 1 :]
     scores = np.zeros_like(best, dtype=np.float32)
 
