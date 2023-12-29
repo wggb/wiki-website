@@ -1,5 +1,5 @@
-from database import get_nodes
-from fast_search import FastSearch
+from modules.database import get_nodes
+from modules.fast_search import FastSearch
 
 
 def get_model():

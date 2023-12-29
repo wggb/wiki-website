@@ -4,11 +4,11 @@ from flask import request, session
 from lxml.html.clean import clean_html
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from database import Node, User
-from database import get_selected_nodes as id2doc
-from database import session as db_session
 from flask_session import Session
-from search_engine import SearchEngine
+from modules.database import Node, User
+from modules.database import get_selected_nodes as id2doc
+from modules.database import session as db_session
+from modules.search_engine import SearchEngine
 
 search = SearchEngine()
 
