@@ -4,8 +4,11 @@ import numpy as np
 def tfidf_sim_matrix(docs):
     from sklearn.feature_extraction.text import TfidfVectorizer
 
+    min_df, max_df = 1, 0.7
+    max_df = max(max_df * len(docs), min_df)
+
     vectorizer = TfidfVectorizer(
-        min_df=1, ngram_range=(1, 1), max_df=0.3, token_pattern="\w*[a-z]+\w*"
+        min_df=min_df, ngram_range=(1, 1), max_df=max_df, token_pattern="\w*[a-z]+\w*"
     )
     vectorizer.fit(docs)
 
