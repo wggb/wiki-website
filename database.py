@@ -40,7 +40,7 @@ class Edge(Base):
     from_id = Column(Integer, ForeignKey("node.id"))
     to_id = Column(Integer, ForeignKey("node.id"))
 
-    intensity = Column(Float, default=1)
+    intensity = Column(Float, default=0)
 
     __table_args__ = (Index("from_id", "to_id", "intensity"),)
 

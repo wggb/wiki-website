@@ -9,9 +9,25 @@
 
 <div class="pt-20 px-4 pb-4">
   <div class="markdown w-full p-4 space-y-4 card bg-neutral shadow-xl">
-    {{ primary_content | safe }}
-    {{ secondary_content | safe }}
+    <h2>{{ node.title }}</h2>
+    {{ node.primary_content | safe }}
+    {{ node.secondary_content | safe }}
   </div>
+
+  {% for related_node in related_nodes %}
+  <li>
+
+    <a href="/results/{{ related_node.id }}">
+      <div class="pt-20 px-4 pb-4">
+        <div class="markdown w-full p-4 space-y-4 card bg-neutral shadow-xl">
+          {{ related_node.title}}
+        </div>
+      </div>
+    </a>
+
+  </li>
+  {% endfor %}
+
 </div>
 
 {% endblock %}
