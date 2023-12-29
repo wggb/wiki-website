@@ -170,7 +170,8 @@ def result(result_id: int):
 
 
 def perform_related_docs_search(id):
-    return search.related_docs(id).tolist()
+    result, _ = search.related_docs(id)
+    return result.tolist()
 
 
 @app.route("/dashboard", methods=["GET", "POST"])

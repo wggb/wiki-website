@@ -34,7 +34,7 @@ def setence_bert_sim_matrix(docs):
 
 
 def get_top_k(sim_matrix, k=3, return_scores=True):
-    top_k = min(sim_matrix.shape[0] - 1, k)
+    top_k = min(sim_matrix.shape[1] - 1, k)
     best = np.argpartition(sim_matrix, -top_k - 1, axis=1)[:, -top_k - 1 :]
     scores = np.zeros_like(best, dtype=np.float32)
 
@@ -75,5 +75,5 @@ class FastSearch:
 
     def related_docs(self, doc_id, method=Methods.SBERT, k=3):
         sim, _, _ = self.methods[method]
-        best, scores = get_top_k(sim[doc_id : doc_id + 1, :])
-        return best, scores
+        best, scores = get_top_k(sim[doc_id : doc_id + 1, :], k=k)
+        return best[0], scores[0]
