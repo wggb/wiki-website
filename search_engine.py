@@ -19,7 +19,7 @@ def get_node_contents():
 
 
 def start_indexing(contents):
-    contents = [x for x in contents]
+    contents = [x for x in contents()]
     return FastSearch(contents)
 
 
