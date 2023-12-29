@@ -65,7 +65,9 @@
 
     <!---->
 
-    {% block main %}{% endblock %}
+    <main class="{% block main_class %}pt-[4.25rem]{% endblock %}">
+      {% block main %}{% endblock %}
+    </main>
 
     <script src="{{ url_for('static', filename='js/bundle.built.js') }}"></script>
   </body>

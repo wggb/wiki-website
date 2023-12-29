@@ -7,27 +7,30 @@
 
 {% block main %}
 
-<div class="pt-20 px-4 pb-4">
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-3">{{ node.title }}</h1>
+
   <div class="markdown w-full p-4 space-y-4 card bg-neutral shadow-xl">
-    <h2>{{ node.title }}</h2>
-    {{ node.primary_content | safe }}
-    {{ node.secondary_content | safe }}
+    {{ node.primary_content | safe }} {{ node.secondary_content | safe }}
   </div>
 
-  {% for related_node in related_nodes %}
-  <li>
+  <p class="text-2xl font-bold mb-3 mt-12">Related Topics</p>
 
-    <a href="/results/{{ related_node.id }}">
-      <div class="pt-20 px-4 pb-4">
-        <div class="markdown w-full p-4 space-y-4 card bg-neutral shadow-xl">
-          {{ related_node.title}}
+  <ul>
+    {% for related_node in related_nodes %}
+    <li>
+      <a href="/results/{{ related_node.id }}">
+        <div class="py-2">
+          <div
+            class="markdown w-full p-4 space-y-4 card bg-neutral shadow-xl transition-colors hover:bg-neutral-focus"
+          >
+            {{ related_node.title}}
+          </div>
         </div>
-      </div>
-    </a>
-
-  </li>
-  {% endfor %}
-
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 
 {% endblock %}
