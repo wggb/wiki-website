@@ -2,7 +2,7 @@
 
 <html lang="en">
   <head>
-    <title>Wiki - {% block title %}{% endblock %}</title>
+    <title>WikiNest - {% block title %}{% endblock %}</title>
 
     <link
       rel="stylesheet"
@@ -21,7 +21,7 @@
       class="fixed navbar bg-base-100 bg-opacity-60 backdrop-blur transition-shadow z-50"
     >
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl" href="/">Wiki</a>
+        <a class="btn btn-ghost normal-case text-xl" href="/">WikiNest</a>
       </div>
       <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
@@ -65,7 +65,9 @@
 
     <!---->
 
-    {% block main %}{% endblock %}
+    <main class="{% block main_class %}pt-[4.25rem]{% endblock %}">
+      {% block main %}{% endblock %}
+    </main>
 
     <script src="{{ url_for('static', filename='js/bundle.built.js') }}"></script>
   </body>

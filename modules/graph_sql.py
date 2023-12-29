@@ -1,5 +1,5 @@
-from database import Edge, Node
-from database import session as db_session
+from modules.database import Edge, Node
+from modules.database import session as db_session
 
 
 class GraphNode:

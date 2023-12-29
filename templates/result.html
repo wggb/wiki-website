@@ -7,27 +7,36 @@
 
 {% block main %}
 
-<div class="pt-20 px-4 pb-4">
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-3">{{ node.title }}</h1>
+
   <div class="markdown w-full p-4 space-y-4 card bg-neutral shadow-xl">
-    <h2>{{ node.title }}</h2>
-    {{ node.primary_content | safe }}
-    {{ node.secondary_content | safe }}
+    {{ node.primary_content | safe }} {{ node.secondary_content | safe }}
   </div>
 
-  {% for related_node in related_nodes %}
-  <li>
+  <p class="text-2xl font-bold mb-3 mt-12">Related Topics</p>
 
-    <a href="/results/{{ related_node.id }}">
-      <div class="pt-20 px-4 pb-4">
-        <div class="markdown w-full p-4 space-y-4 card bg-neutral shadow-xl">
-          {{ related_node.title}}
+  <ul>
+    {% for related_node in related_nodes %}
+    <li class="group relative h-28 overflow-hidden card bg-neutral shadow-xl transition-colors hover:bg-neutral-focus mb-4">
+      <a class="w-full h-full" href="/results/{{ related_node.id }}">
+        <div class="p-4">
+          <div
+            class="w-full"
+          >
+            <p class="text-lg mb-3 font-bold">{{ related_node.title }}</p>
+
+            <div>
+              {{ related_node.primary_content | safe }}
+            </div>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
 
-  </li>
-  {% endfor %}
-
+      <div class="absolute z-10 w-full h-full transition-colors pointer-events-none [background:linear-gradient(0deg,hsl(var(--n)/var(--tw-bg-opacity))_0%,#0000_35%,#0000_100%)] group-hover:[background:linear-gradient(0deg,hsl(var(--nf)/var(--tw-bg-opacity))_0%,#0000_35%,#0000_100%)]"></div>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-from graph_sql import GraphSQL
+from modules.graph_sql import GraphSQL
 
 
 class Graph:

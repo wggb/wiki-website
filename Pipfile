@@ -8,6 +8,9 @@ flask = "*"
 sqlalchemy = "*"
 flask-session = "*"
 lxml = "*"
+numpy = "*"
+sentence_transformers = "*"
+scikit-learn = "*"
 
 [dev-packages]
 black = "*"

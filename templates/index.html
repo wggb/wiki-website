@@ -5,6 +5,8 @@
   Home
 {% endblock %}
 
+{% block main_class %}{% endblock %}
+
 {% block main %}
 <div class="flex flex-col min-h-screen items-center justify-center">
   <form
@@ -29,6 +31,7 @@
       </svg>
 
       <input
+        id="search"
         name="search"
         type="text"
         placeholder="Search..."

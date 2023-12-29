@@ -4,9 +4,13 @@ from flask import request, session
 from lxml.html.clean import clean_html
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from database import Node, User
-from database import session as db_session
 from flask_session import Session
+from modules.database import Node, User
+from modules.database import get_selected_nodes as id2doc
+from modules.database import session as db_session
+from modules.search_engine import SearchEngine
+
+search = SearchEngine()
 
 app = Flask(__name__)
 
@@ -131,19 +135,21 @@ def logout():
 
 @app.route("/results", methods=["GET"])
 def results():
-    query = request.form.get("search")
-    result = perform_search(query)
-    related_ids = result
-    # related_ids = [1, 2, 3]
+    if not request.args.get("search"):
+        return redirect("/")
+    query = request.args.get("search")
+    related_ids = perform_search(query)
     nodes = db_session.query(Node).filter(Node.id.in_(related_ids)).all()
     if nodes:
         return render_template("results.html", nodes=nodes)
+    else:
+        return redirect("/")
 
 
 def perform_search(query):
     # search logic
-    # return search results
-    pass
+    # return search results in id
+    return search.query(query).tolist()
 
 
 @app.route("/results/<int:result_id>", methods=["GET"])
@@ -151,7 +157,6 @@ def result(result_id: int):
     node = db_session.query(Node).where(Node.id == result_id).first()
 
     related_ids = perform_related_docs_search(result_id)
-    # related_ids = [2, 3]
     related_nodes = db_session.query(Node).filter(Node.id.in_(related_ids)).all()
 
     if node:
@@ -167,7 +172,8 @@ def result(result_id: int):
 
 
 def perform_related_docs_search(id):
-    pass
+    result, _ = search.related_docs(id)
+    return result.tolist()
 
 
 @app.route("/dashboard", methods=["GET", "POST"])
@@ -188,8 +194,13 @@ def dashboard():
                 primary_content=primary_content,
                 secondary_content=secondary_content,
             )
-            db_session.add(node)
-            db_session.commit()
+            add_node(node)
         return redirect("/dashboard")
     else:
         return render_template("dashboard.html")
+
+
+def add_node(node):
+    db_session.add(node)
+    db_session.commit()
+    search.signal_new_doc()

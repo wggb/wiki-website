@@ -8,22 +8,33 @@
 {% block main %}
 
 {% if nodes %}
-<ul>
+<ul class="p-4">
   {% for node in nodes %}
-  <li>
+  <li class="group relative h-48 overflow-hidden card bg-neutral shadow-xl transition-colors hover:bg-neutral-focus mb-4">
+    <a class="w-full h-full" href="/results/{{ node.id }}">
+      <div class="p-4">
+        <div
+          class="w-full"
+        >
+          <p class="text-lg mb-3 font-bold">{{ node.title }}</p>
 
-  <a href="/results/{{ node.id }}">
-    <div class="pt-20 px-4 pb-4">
-      <div class="markdown w-full p-4 mt-[-10px] card bg-neutral shadow-xl">
-        <b style="font-size: larger;">{{ node.title}}</b>
-        {{ node.primary_content | safe }}
+          <div>
+            {{ node.primary_content | safe }}
+          </div>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
 
+    <div class="absolute z-10 w-full h-full transition-colors pointer-events-none [background:linear-gradient(0deg,hsl(var(--n)/var(--tw-bg-opacity))_0%,#0000_35%,#0000_100%)] group-hover:[background:linear-gradient(0deg,hsl(var(--nf)/var(--tw-bg-opacity))_0%,#0000_35%,#0000_100%)]"></div>
   </li>
   {% endfor %}
 </ul>
+{% else %}
+<div class="py-6 text-center">
+  <p class="text-2xl mb-3 font-bold">
+    Results Not Found
+  </p>
+</div>
 {% endif %}
 
 <!---->
