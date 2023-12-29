@@ -18,16 +18,22 @@
 
   <ul>
     {% for related_node in related_nodes %}
-    <li>
-      <a href="/results/{{ related_node.id }}">
-        <div class="py-2">
+    <li class="group relative h-28 overflow-hidden card bg-neutral shadow-xl transition-colors hover:bg-neutral-focus mb-4">
+      <a class="w-full h-full" href="/results/{{ related_node.id }}">
+        <div class="p-4">
           <div
-            class="markdown w-full p-4 space-y-4 card bg-neutral shadow-xl transition-colors hover:bg-neutral-focus"
+            class="w-full"
           >
-            {{ related_node.title}}
+            <p class="text-lg mb-3 font-bold">{{ related_node.title }}</p>
+
+            <div>
+              {{ related_node.primary_content | safe }}
+            </div>
           </div>
         </div>
       </a>
+
+      <div class="absolute z-10 w-full h-full transition-colors pointer-events-none [background:linear-gradient(0deg,hsl(var(--n)/var(--tw-bg-opacity))_0%,#0000_35%,#0000_100%)] group-hover:[background:linear-gradient(0deg,hsl(var(--nf)/var(--tw-bg-opacity))_0%,#0000_35%,#0000_100%)]"></div>
     </li>
     {% endfor %}
   </ul>
