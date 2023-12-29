@@ -135,11 +135,10 @@ def logout():
 
 @app.route("/results", methods=["GET"])
 def results():
-    if not request.form.get("search"):
+    if not request.args.get("search"):
         return redirect("/")
-    query = request.form.get("search")
+    query = request.args.get("search")
     related_ids = perform_search(query)
-    # related_ids = [1, 2, 3]
     nodes = db_session.query(Node).filter(Node.id.in_(related_ids)).all()
     if nodes:
         return render_template("results.html", nodes=nodes)
@@ -148,7 +147,7 @@ def results():
 def perform_search(query):
     # search logic
     # return search results in id
-    return search.query(query)
+    return search.query(query).tolist()
 
 
 @app.route("/results/<int:result_id>", methods=["GET"])
@@ -156,7 +155,6 @@ def result(result_id: int):
     node = db_session.query(Node).where(Node.id == result_id).first()
 
     related_ids = perform_related_docs_search(result_id)
-    # related_ids = [2, 3]
     related_nodes = db_session.query(Node).filter(Node.id.in_(related_ids)).all()
 
     if node:
@@ -172,7 +170,7 @@ def result(result_id: int):
 
 
 def perform_related_docs_search(id):
-    return search.related_docs(id)
+    return search.related_docs(id).tolist()
 
 
 @app.route("/dashboard", methods=["GET", "POST"])
