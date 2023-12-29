@@ -142,6 +142,8 @@ def results():
     nodes = db_session.query(Node).filter(Node.id.in_(related_ids)).all()
     if nodes:
         return render_template("results.html", nodes=nodes)
+    else:
+        return redirect("/")
 
 
 def perform_search(query):
