@@ -28,7 +28,7 @@ class SearchEngine:
     def __init__(self, lazy_start=False, content_gen=get_node_contents):
         self.indexing_args = content_gen
 
-        self.fast_search = FastSearch([])
+        self.fast_search = None
         if not lazy_start:
             self.start_indexing()
 
@@ -36,9 +36,15 @@ class SearchEngine:
         self.fast_search = start_indexing(self.indexing_args)
 
     def query(self, query):
+        if not self.fast_search:
+            return []
+
         return 1 + self.fast_search.query(query)
 
     def related_docs(self, doc_id):
+        if not self.fast_search:
+            return []
+
         best, scores = self.fast_search.related_docs(doc_id - 1)
         return best + 1, scores
 
