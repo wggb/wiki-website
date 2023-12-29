@@ -6,7 +6,7 @@ import postcss from "rollup-plugin-postcss";
 
 export default [
   {
-    input: "imports.js",
+    input: "assets/js/imports.js",
     output: {
       file: "static/js/bundle.built.js",
       format: "iife",
@@ -29,7 +29,7 @@ export default [
     ],
   },
   {
-    input: "imports.styles.js",
+    input: "assets/js/imports.styles.js",
     output: {
       file: "static/css/bundle.built.css",
       name: "styles",
