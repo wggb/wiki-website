@@ -27,6 +27,8 @@ def start_indexing(contents, lazy_input=True):
 class SearchEngine:
     def __init__(self, lazy_start=False, content_gen=get_node_contents):
         self.indexing_args = content_gen
+        self.new_doc_count = 0
+        self.total_doc_count = 0
 
         self.fast_search = None
         if not lazy_start:
